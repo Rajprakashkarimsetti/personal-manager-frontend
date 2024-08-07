@@ -12,7 +12,7 @@ const Login = () => {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:4000/graphql', {
+            const response = await fetch('https://zeroth-francisca-rajprakash-a3d9f427.koyeb.app/graphql/graphql', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

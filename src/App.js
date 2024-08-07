@@ -8,7 +8,7 @@ import TransactionForm from './components/Dashboard/TransactionForm'; // Import 
 import EditTransactionPage from './pages/EditTransaction'; // Import EditTransactionPage
 
 const App = () => (
-  <Router>
+  <HashRouter>
     <Routes>
       <Route path="/" element={<Login />} /> {/* Default route */}
       <Route path="/login" element={<Login />} />
@@ -18,7 +18,7 @@ const App = () => (
       <Route path="/edit-transaction/:id" element={<EditTransactionPage />} /> {/* Route for EditTransactionPage */}
       {/* Remove the NotFound route if not needed */}
     </Routes>
-  </Router>
+  </HashRouter>
 );
 
 export default App;

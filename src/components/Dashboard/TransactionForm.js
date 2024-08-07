@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/global.css';
 
-// Updated GraphQL mutation to include 'type'
 const CREATE_TRANSACTION = gql`
   mutation CreateTransaction(
     $amount: Float!,
@@ -30,7 +29,6 @@ const CREATE_TRANSACTION = gql`
   }
 `;
 
-// Updated query to include 'type'
 const GET_ALL_TRANSACTIONS = gql`
   query GetAllTransactions {
     getAllTransactions {
@@ -49,7 +47,7 @@ const TransactionForm = () => {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [category, setCategory] = useState('');
-  const [type, setType] = useState(''); // Added state for 'type'
+  const [type, setType] = useState('');
   const [createTransaction, { loading, error }] = useMutation(CREATE_TRANSACTION, {
     refetchQueries: [{ query: GET_ALL_TRANSACTIONS }],
     awaitRefetchQueries: true,
@@ -65,7 +63,7 @@ const TransactionForm = () => {
           description,
           date,
           category,
-          type, // Include type in variables
+          type,
         },
       });
       alert('Transaction added successfully!');
@@ -75,10 +73,15 @@ const TransactionForm = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/dashboard');
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="container">
-        <div>
+    <div className="transaction-form-container">
+      <h1 className="transaction-form-header">Add New Transaction</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
           <label>Description:</label>
           <input
             type="text"
@@ -87,7 +90,7 @@ const TransactionForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Amount:</label>
           <input
             type="number"
@@ -97,7 +100,7 @@ const TransactionForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Category:</label>
           <input
             type="text"
@@ -106,7 +109,7 @@ const TransactionForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Date:</label>
           <input
             type="date"
@@ -115,7 +118,7 @@ const TransactionForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Type:</label>
           <select
             value={type}
@@ -127,10 +130,13 @@ const TransactionForm = () => {
             <option value="EXPENSE">Expense</option>
           </select>
         </div>
-        <button type="submit" disabled={loading}>Save</button>
-        {error && <p>Error adding transaction: {error.message}</p>}
-      </div>
-    </form>
+        <div className="form-buttons">
+          <button type="submit" disabled={loading}>Save</button>
+          <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+        </div>
+        {error && <p className="error-message">Error adding transaction: {error.message}</p>}
+      </form>
+    </div>
   );
 };
 

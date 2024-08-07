@@ -1,8 +1,8 @@
-// src/components/Dashboard/Dashboard.js
 import React, { useState } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import Transactions from './Transactions';
+import '../../styles/global.css';
 
 const GET_FINANCE_SUMMARY = gql`
   query GetFinanceSummary {
@@ -90,111 +90,46 @@ const Dashboard = () => {
     }
   };
 
-  const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '20px',
-  };
-
-  const headerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '20px',
-  };
-
-  const controlsStyle = {
-    display: 'flex',
-    gap: '10px',
-  };
-
-  const buttonStyle = {
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '5px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    cursor: 'pointer',
-  };
-
-  const contentStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-  };
-
-  const titleStyle = {
-    fontSize: '1.5em',
-    marginBottom: '20px',
-  };
-
-  const statsStyle = {
-    marginBottom: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  };
-
-  const summaryStyle = {
-    display: 'flex',
-    gap: '20px',
-  };
-
-  const searchStyle = {
-    display: 'flex',
-    gap: '10px',
-    marginBottom: '20px',
-  };
-
-  const inputStyle = {
-    padding: '10px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-  };
-
-  const transactionListStyle = {
-    marginTop: '20px',
-  };
-
   return (
-    <div style={containerStyle}>
-      <header style={headerStyle}>
+    <div className="container">
+      <header>
         <h1>Personal Finance Manager</h1>
-        <div style={controlsStyle}>
-          <button style={buttonStyle} onClick={handleAddTransaction}>Add Transaction</button>
-          <button style={buttonStyle} onClick={handleLogout}>Logout</button>
+        <div className="controls">
+          <button className="button" onClick={handleAddTransaction}>Add Transaction</button>
+          <button className="button" onClick={handleLogout}>Logout</button>
         </div>
       </header>
-      <div style={contentStyle}>
-        <h2 style={titleStyle}>Finance Dashboard</h2>
-        <div style={statsStyle}>
+      <div className="content">
+        <h2 className="title">Finance Dashboard</h2>
+        <div className="stats">
           <p>Total Balance: ${balance.toFixed(2)}</p>
-          <div style={summaryStyle}>
+          <div className="summary">
             <p>Income: ${totalIncome.toFixed(2)}</p>
           </div>
-          <div style={summaryStyle}>
+          <div className="summary">
             <p>Expenses: ${totalExpenses.toFixed(2)}</p>
           </div>
           <p>Categories: {category.join(', ')}</p>
         </div>
-        <div style={searchStyle}>
+        <div className="search">
           <input
             type="text"
             placeholder="Search..."
             value={searchTerm}
             onChange={handleSearchChange}
-            style={inputStyle}
+            className="input"
           />
           <select
             value={selectedType}
             onChange={handleTypeChange}
-            style={inputStyle}
+            className="input"
           >
             <option value="all">All</option>
             <option value="INCOME">Income</option>
             <option value="EXPENSE">Expense</option>
           </select>
         </div>
-        <div style={transactionListStyle}>
+        <div className="transaction-list">
           <Transactions
             transactions={filteredTransactions}
             onEdit={handleEdit}

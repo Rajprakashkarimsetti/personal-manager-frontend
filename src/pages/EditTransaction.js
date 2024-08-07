@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../styles/global.css';
 
 const GET_TRANSACTION = gql`
   query getTransactionById($id: ID!) {
@@ -76,14 +77,18 @@ const EditTransactionPage = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/dashboard'); // Redirect to dashboard on cancel
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div className="edit-transaction">
       <h2>Edit Transaction</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="edit-transaction-form">
+        <div className="form-group">
           <label>Description:</label>
           <input
             type="text"
@@ -93,7 +98,7 @@ const EditTransactionPage = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Amount:</label>
           <input
             type="number"
@@ -103,7 +108,7 @@ const EditTransactionPage = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Date:</label>
           <input
             type="date"
@@ -113,7 +118,7 @@ const EditTransactionPage = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Category:</label>
           <input
             type="text"
@@ -123,7 +128,7 @@ const EditTransactionPage = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Type:</label>
           <select
             name="type"
@@ -135,7 +140,10 @@ const EditTransactionPage = () => {
             <option value="EXPENSE">Expense</option>
           </select>
         </div>
-        <button type="submit">Update Transaction</button>
+        <div className="form-buttons">
+          <button type="submit" className="submit-button">Update Transaction</button>
+          <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>
+        </div>
       </form>
     </div>
   );

@@ -15,7 +15,7 @@ const Register = () => {
   
     try {
       const response = await axios.post(
-        'http://localhost:4000/graphql',
+        'https://zeroth-francisca-rajprakash-a3d9f427.koyeb.app/graphql/graphql',
         {
           query: `
             mutation {
